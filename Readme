@@ -1,0 +1,103 @@
+# 📅 Date & Time Web App with Go & Kubernetes  
+
+![Demo Animation](./demo_video.mp4) *
+
+## 🚀 **Quick Start**  
+
+### **Run Locally**  
+```bash
+# 1. Clone the repo  
+git clone https://github.com/hafsaahmadi/datetime-app.git  
+cd datetime-app  
+
+# 2. Run the Go app  
+go run main.go  
+
+# 3. Open http://localhost:3000  
+```  
+
+### **Deploy to Kubernetes**  
+```bash
+# 1. Build & push Docker image  
+docker build -t hafsaahamadi/datetime-app:latest .  
+docker push hafsaahamadi/datetime-app:latest  
+
+# 2. Deploy to Kubernetes  
+kubectl apply -f deployment.yaml  
+
+# 3. Access the app  
+minikube service datetime-app-service --url  # Local cluster  
+kubectl get service datetime-app-service    # Cloud cluster (use EXTERNAL-IP)  
+```  
+
+---
+
+## 🌟 **Features**  
+- **Real-time clock**: Displays current date/time in a clean web UI.  
+- **Lightweight**: Minimal Go binary (~5MB) in an Alpine Docker image.  
+- **Scalable**: Kubernetes deployment with 2 replicas.  
+- **Production-ready**: Resource limits, health checks, and LoadBalancer support.  
+
+---
+
+## 🛠 **How It Works**  
+
+### **1. Go Web Server**  
+- Uses `net/http` to serve HTML with dynamic time updates.  
+- Styled with CSS (no JavaScript needed!).  
+
+### **2. Docker Optimization**  
+- **Multi-stage build**: Compiles Go in a builder image, runs in tiny Alpine.  
+- **Port 3000 exposed**: Ready for Kubernetes networking.  
+
+### **3. Kubernetes Setup**  
+- **Deployment**: Runs 1 pods for redundancy.  
+- **Service**: `LoadBalancer` exposes the app (or `NodePort` for local clusters).  
+
+---
+
+## 📂 **Files Explained**  
+
+| File            | Purpose                          |  
+|-----------------|----------------------------------|  
+| `main.go`       | Go web server code               |  
+| `Dockerfile`    | Container build instructions     |  
+| `deployment.yaml` | Kubernetes config (Deployment + Service)|  
+| `go.mod`        | Go dependencies                  |  
+
+---
+
+## ❓ **Need Help?**  
+
+### **Common Issues**  
+- **Docker build fails**: Ensure Docker is running and you’re logged in (`docker login`).  
+- **Kubernetes service stuck in `<pending>`**: Use `minikube tunnel` or `kubectl port-forward`.  
+- **No internet access**: Check firewall rules for cloud clusters (AWS/GCP/Azure).  
+
+---
+
+## 🤝 **Contribute**  
+PRs welcome! To improve:  
+- Add tests  
+- Enhance UI  
+- Add CI/CD (GitHub Actions)  
+
+--- 
+
+📌 **Pro Tip**: Replace `hafsaahamadi` in all files with your Docker Hub/GitHub username!  
+
+---  
+[ScreenToGif](https://www.screentogif.com/) to record a demo.)*  
+
+---  
+
+### **License**  
+MIT © 2023 [Your Name]  
+
+---  
+
+✨ **Happy Coding!** Deploy your first Go + K8s app in minutes!  
+
+---  
+
+*(This README uses emojis for visual scanning, short sentences, and clear code blocks. Adjust animation/GIF as needed!)*
