@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datetime-app
+  labels:
+    app: datetime-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datetime-app
+  template:
+    metadata:
+      labels:
+        app: datetime-app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: datetime-app
+          image: hafsaahamadi/datetime-app:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "128Mi"
+            requests:
+              cpu: "0.1"
+              memory: "64Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: datetime-app-service
+spec:
+  selector:
+    app: datetime-app
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer
