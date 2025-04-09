@@ -1,0 +1,90 @@
+{
+    "apiVersion": "v1",
+    "metadata": {
+      "scanningTarget": {
+        "targetType": "cluster"
+      },
+      "timestamp": "2025-04-07T10:30:00Z"
+    },
+    "clusterAPIServerInfo": {
+      "version": "v1.24.0"
+    },
+    "results": [
+      {
+        "resourceID": "test-apps/nginx-deployment",
+        "resourceType": "Deployment",
+        "controls": [
+          {
+            "controlID": "C-0057",
+            "name": "Privileged container",
+            "severity": "High",
+            "status": "Failed",
+            "remediation": "Ensure the container is not privileged by setting securityContext.privileged=false or removing the setting completely."
+          },
+          {
+            "controlID": "C-0004",
+            "name": "Container resources not defined",
+            "severity": "Medium",
+            "status": "Failed",
+            "remediation": "Define container resource limits and requests."
+          }
+        ]
+      },
+      {
+        "resourceID": "test-apps/security-context-demo",
+        "resourceType": "Pod",
+        "controls": [
+          {
+            "controlID": "C-0044",
+            "name": "Container capabilities",
+            "severity": "Medium",
+            "status": "Failed",
+            "remediation": "Remove unnecessary capabilities from the securityContext."
+          }
+        ]
+      },
+      {
+        "resourceID": "test-apps/hostpath-volume-pod",
+        "resourceType": "Pod",
+        "controls": [
+          {
+            "controlID": "C-0006",
+            "name": "Host path mount",
+            "severity": "High",
+            "status": "Failed",
+            "remediation": "Avoid mounting host paths, especially sensitive directories like root (/)."
+          }
+        ]
+      },
+      {
+        "resourceID": "test-apps/secret-env-pod",
+        "resourceType": "Pod",
+        "controls": [
+          {
+            "controlID": "C-0012",
+            "name": "Sensitive information disclosure",
+            "severity": "Medium",
+            "status": "Failed",
+            "remediation": "Use volume mounts for secrets instead of environment variables."
+          }
+        ]
+      },
+      {
+        "resourceID": "test-apps",
+        "resourceType": "Namespace",
+        "controls": [
+          {
+            "controlID": "C-0030",
+            "name": "Network policy not defined",
+            "severity": "Medium",
+            "status": "Failed",
+            "remediation": "Define a default deny network policy and specifically allow required traffic."
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "totalResources": 14,
+      "totalFailedResources": 5,
+      "totalControls": 76,
+      "failedControls": 13,
